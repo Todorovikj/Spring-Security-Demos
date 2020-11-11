@@ -1,0 +1,29 @@
+<div *ngIf="project">
+
+  {{project.projectName}}
+</div>
+
+<button (click)="getAllEmployees()"> list all employees</button>
+
+<div *ngIf="employees">
+  <form name="form" (ngSubmit)="f.form.valid && addEmployee()" #f="ngForm" novalidate>
+    <label for="employee">Please select employee</label>
+    <select [(ngModel)]="worksOn.userId" name="userId" id="employee" required #employee="ngModel">
+      <option *ngFor="let employee of employees" [attr.value]="employee.userId">
+        {{employee.fullName}} {{employee.username}}
+      </option>
+    </select>
+    <button type="submit">Add Employee</button>
+  </form>
+  <div *ngIf="f.submitted && !employee.valid" class="help-block">The User is required</div>
+</div>
+
+
+<button (click)="getEmployeesOnProject()"> list all employees on this project</button>
+<div *ngIf="employeesOnProject">
+<ul *ngFor="let employee of employeesOnProject">
+  <li> {{employee.username}}</li>
+</ul>
+</div>
+
+

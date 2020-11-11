@@ -1,0 +1,27 @@
+  spring:
+    application:
+      name: Voting
+    datasource:
+      url: jdbc:postgresql://localhost:5432/project_management
+      username: postgres
+      password: 1234
+      driver-class-name: org.postgresql.Driver
+
+
+    jpa:
+      hibernate:
+        ddl-auto: validate
+
+    security:
+      oauth2:
+        client:
+          registration:
+            github:
+              client-id: 7e6d06ec4b479496c14d
+              client-secret: f61a97490d46a48932f29ded49c102fbc4bc6b17
+              client-name: Github
+              provider: github
+              scope: user:email
+              redirect-uri: http://localhost:4200/api/public/code/github
+
+

@@ -1,0 +1,48 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+
+    <ul class="nav navbar-nav">
+      <li class="active"><a>Home</a></li>
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+
+      <li><span class="glyphicon glyphicon-log-in" (click)="logOut()"> LogOut</span></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- Jumbotron Header -->
+  <header class="jumbotron my-4">
+    <h1 class="display-3"><strong>{{currentUser.fullName}} {{ currentUser}}</strong>, Welcome to your app </h1>
+    <p class="lead"> welcome to your profile
+    </p>
+    <div class="row">
+
+
+    </div>
+  </header>
+</div>
+
+
+<form (ngSubmit)="createProject()">
+  <label>ProjectName</label><input name="projectName" [(ngModel)]="project.projectName">
+  <label>Project Start Date</label><input ngForm="startDate" name="startDate" [(ngModel)]="project.startDate">
+  <label> Project estimated end Date</label><input ngForm="estimatedEndDate" name="estimatedEndDate"
+                                                   [(ngModel)]="project.estimatedEndDate">
+
+  <button type="submit"> Create project</button>
+</form>
+
+
+<div *ngIf="projects">
+  <ul *ngFor="let p of projects">
+    <a [routerLink]="['/project/'+ p.projectId]">
+    <li>{{p.projectName}}</li>
+    </a>
+  </ul>
+</div>
+
+

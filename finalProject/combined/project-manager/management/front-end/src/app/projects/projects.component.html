@@ -1,0 +1,81 @@
+<div *ngIf="project">
+
+  {{project.projectName}}
+</div>
+
+<button (click)="getAllEmployees()"> list all employees</button>
+
+<div *ngIf="employees">
+  <form name="form" (ngSubmit)="f.form.valid && addEmployee()" #f="ngForm" novalidate>
+    <label for="employee">Please select employee</label>
+    <select [(ngModel)]="worksOn.userId" name="userId" id="employee" required #employee="ngModel">
+      <option *ngFor="let employee of employees" [attr.value]="employee.userId">
+        {{employee.fullName}} {{employee.username}}
+      </option>
+    </select>
+    <button type="submit">Add Employee</button>
+  </form>
+  <div *ngIf="f.submitted && !employee.valid" class="help-block">The User is required</div>
+</div>
+
+
+<button (click)="getEmployeesOnProject()"> list all employees on this project</button>
+<div *ngIf="employeesOnProject && employeesOnProject.length!=0">
+<ul *ngFor="let employee of employeesOnProject">
+  <li> {{employee.username}}</li>
+</ul>
+
+
+<form name="form" (ngSubmit)="f.form.valid && createTask()" #f="ngForm" novalidate>
+    <label for="taskName">Task Name</label>
+    <input type="text" class="form-control" name="taskName" id="taskName" [(ngModel)]="task.taskName"
+           #taskName="ngModel" required/>
+    <div *ngIf="f.submitted && !taskName.valid" class="help-block">The Task Name is required</div>
+
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !description.valid }">
+    <label for="description">Description</label>
+    <input type="text" class="form-control" name="description" id="description"
+           [(ngModel)]="task.description" #description="ngModel" required/>
+    <div *ngIf="f.submitted && !description.valid" class="help-block">
+
+      <div *ngIf="description.errors">
+        Description is required.
+      </div>
+
+    </div>
+  </div>
+
+  <label>Task Start Date</label><input ngForm="startDate" name="startDate" [(ngModel)]="task.startDate" required
+  #startDate="ngModel">
+  <div *ngIf="f.submitted && !startDate.valid" class="help-block">
+    Please enter start date for task!!!
+    </div>
+  <label> Task estimated end Date</label><input ngForm="estimatedEndDate" name="estimatedEndDate"
+                          [(ngModel)]="task.estimatedEndDate" required #estimatedEndDate="ngModel">
+
+             <div *ngIf="f.submitted && !startDate.valid" class="help-block">
+              Please enter end  date for task!!!
+              </div>
+
+      <label for="user">Please select employee</label>
+      <select [(ngModel)]="task.userId" name="user" id="user" required #user="ngModel">
+        <option *ngFor="let user of employeesOnProject" [attr.value]="user.userId">
+          {{user.fullName}} {{user.username}}
+        </option>
+      </select>
+
+      <div *ngIf="f.submitted && !user.valid" class="help-block">The User is required</div>
+
+
+
+  <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Create Task</button>
+
+</form>
+</div>
+
+<div *ngIf="tasks">
+<ul *ngFor="let t of tasks">
+  <li>{{t.taskName}} </li>
+</ul>
+</div>
+
